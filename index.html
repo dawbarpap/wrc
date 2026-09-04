@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>W razie czego — serial audio o obronie cywilnej</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0d1522;      /* sypialnia o czwartej rano */
+    --wall:#141e2e;       /* ściana, o ton jaśniejsza */
+    --ink:#ece6da;        /* tekst, ciepła biel */
+    --ink-dim:#9aa3b2;    /* tekst drugoplanowy */
+    --glow:#cfe0ff;       /* jedyne światło w pokoju: ekran telefonu */
+    --rule:#26324a;
+    --measure:40rem;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--night);color:var(--ink);
+    font-family:"Courier Prime","Courier New",Courier,monospace;
+    font-size:1rem;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--glow);text-decoration-thickness:1px;text-underline-offset:.2em}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--glow);outline-offset:4px}
+
+  .wrap{max-width:var(--measure);margin:0 auto;padding:0 1.25rem}
+
+  h1,h2,.num{font-weight:400;margin:0;letter-spacing:0}
+
+  /* ---------- logotyp ---------- */
+  .brand{display:inline-flex;align-items:center;gap:.75rem;color:var(--ink-dim);text-decoration:none;margin-bottom:4rem}
+  .brand:hover{color:var(--ink)}
+  .brand svg{width:2.75rem;height:2.75rem;flex:none}
+  .brand span{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;line-height:1.35}
+
+  /* ---------- otwarcie: dwie liczby, tytuł, play ---------- */
+  .hero{padding:3rem 0 4rem}
+  .numbers{display:grid;grid-template-columns:1fr 1px 1fr;gap:0 2rem;align-items:start}
+  .numbers::before{content:"";grid-column:2;grid-row:1;height:100%;background:var(--rule)}
+  .num{font-size:clamp(1.3rem,2.6vw,1.75rem);line-height:1.3;text-wrap:balance;grid-row:1}
+  .num:first-child{grid-column:1}
+  .num:last-child{grid-column:3}
+  .num strong{display:block;font-size:clamp(2.4rem,6vw,3.6rem);line-height:1;margin-bottom:.6rem}
+  @media (max-width:40rem){
+    .numbers{grid-template-columns:1fr;gap:0}
+    .numbers::before{grid-column:1;grid-row:2;height:1px;width:100%;margin:1.75rem 0}
+    .num:first-child{grid-row:1}
+    .num:last-child{grid-column:1;grid-row:3}
+  }
+  .num strong{font-weight:700;color:var(--glow)}
+
+  .title{margin-top:5rem;border-top:1px solid var(--rule);padding-top:2.5rem}
+  .title h1{font-size:clamp(2.4rem,8vw,4.5rem);line-height:1.05;font-weight:700}
+  .title p{margin:1rem 0 0;max-width:30rem;color:var(--ink-dim)}
+
+  /* ---------- odtwarzacz: ekran telefonu w ciemnym pokoju ---------- */
+  .player{
+    margin-top:2.5rem;display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:center
+  }
+  .play{
+    width:4.5rem;height:4.5rem;border-radius:50%;border:1px solid var(--glow);
+    background:transparent;color:var(--glow);cursor:pointer;display:grid;place-items:center;
+    box-shadow:0 0 0 0 rgba(207,224,255,0);transition:box-shadow .6s ease,background .3s
+  }
+  .play:hover{background:rgba(207,224,255,.06)}
+  .play[aria-pressed="true"]{box-shadow:0 0 60px 12px rgba(207,224,255,.18);background:rgba(207,224,255,.08)}
+  .play svg{width:1.4rem;height:1.4rem;fill:currentColor}
+  .player .meta{font-size:.95rem;color:var(--ink-dim)}
+  .player .meta b{font-weight:500;color:var(--ink);display:block}
+  .bar{height:1px;background:var(--rule);margin-top:.6rem;position:relative}
+  .bar i{position:absolute;left:0;top:-1px;height:3px;width:0;background:var(--glow)}
+
+  /* ---------- sekcje ---------- */
+  section{padding:3.5rem 0;border-top:1px solid var(--rule)}
+  h2{font-size:clamp(1.35rem,3vw,1.75rem);line-height:1.25;margin-bottom:1.25rem;font-weight:700}
+  p{margin:0 0 1rem}
+  .lead{font-size:1.1rem;line-height:1.55}
+
+  dl{margin:0;display:grid;grid-template-columns:9rem 1fr;gap:.6rem 1.25rem}
+  dt{color:var(--ink-dim)}dd{margin:0}
+  @media (max-width:36rem){dl{grid-template-columns:1fr}dt{margin-top:.6rem}}
+
+  footer{padding:3rem 0 4rem;border-top:1px solid var(--rule);font-size:.9rem;color:var(--ink-dim)}
+  footer p{margin:.3rem 0}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="Teatr Polskiego Podcastu">
+      <svg viewBox="0 0 44 44" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M5 19v6M11 14v16M17 8v28M23 16v12M29 4v36M35 12v20M41 18v8"/>
+      </svg>
+      <span>Teatr Polskiego<br>Podcastu</span>
+    </a>
+    <div class="numbers">
+      <p class="num"><strong>82%</strong> Polaków nie wie, gdzie jest najbliższe miejsce schronienia.</p>
+      <p class="num"><strong>11,4 mln</strong> Polaków słucha podcastów.</p>
+    </div>
+
+    <div class="title">
+      <h1>W razie czego</h1>
+      <p>Fabularny serial audio o obronie cywilnej. Osiem rodzin, osiem sytuacji, w których trzeba wiedzieć, co robić.</p>
+    </div>
+
+    <div class="player" id="main-player">
+      <button class="play" type="button" aria-pressed="false" aria-label="Odtwórz zwiastun" data-audio="audio/zwiastun.mp3">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="ico-play" d="M7 4v16l13-8z"/><path class="ico-pause" d="M6 4h4v16H6zm8 0h4v16h-4z" style="display:none"/></svg>
+      </button>
+      <div class="meta">
+        <b>Zwiastun, 90 s</b>
+        <span class="time">Czwarta rano. Syreny. Nie ma prądu.</span>
+        <div class="bar"><i></i></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="dlaczego">
+    <h2>Dlaczego serial, skoro jest poradnik</h2>
+    <p class="lead">Poradnik bezpieczeństwa trafił do każdego domu w Polsce, ale ludzie najlepiej zapamiętują to, co przeżyli, choćby tylko w wyobraźni. Podcastowe słuchowisko „W razie czego" utrwala wiedzę z Poradnika, przenosząc słuchaczy w świat zwykłych rodzin w niezwykłych sytuacjach. Dzięki temu zasady z Poradnika przestają być tekstem, a stają się doświadczeniem, które może okazać się najważniejsze w życiu, nawet jeśli przyda się tylko raz.</p>
+    <p>Serial nie zastępuje Poradnika. Prowadzi do niego. Każdy odcinek osadzony jest w konkretnym rozdziale i kończy się jedną rzeczą, którą można zrobić jeszcze dziś wieczorem.</p>
+  </section>
+
+  <section id="jak">
+    <h2>Jak to zrobimy</h2>
+    <dl>
+      <dt>Format</dt><dd>8 odcinków po 15 do 20 minut, słuchowisko z pełną realizacją dźwiękową.</dd>
+      <dt>Merytoryka</dt><dd>Każdy odcinek osadzony w konkretnym rozdziale Poradnika bezpieczeństwa.</dd>
+      <dt>Dystrybucja</dt><dd>Spotify, Apple Podcasts, YouTube, kanały partnera. Możliwa emisja radiowa.</dd>
+      <dt>Afiliacje</dt><dd>Wejścia na poradnikbezpieczenstwa.gov.pl z linku serialu, zapisy na szkolenia.</dd>
+    </dl>
+  </section>
+
+  <section id="kto">
+    <h2>Kto to robi</h2>
+    <p class="lead">Dawid Bartosik, założyciel Teatru Polskiego Podcastu, twórca podcastów teatralnych i słuchowisk (m.in. KRAJM STORY, najpopularniejszy teatralny podcast kryminalny w Polsce), na co dzień szef monitoringu mediów w Polskiej Agencji Prasowej, gdzie zajmuje się między innymi przeciwdziałaniem dezinformacji.</p>
+  </section>
+
+  <section id="kontakt">
+    <h2>KONTAKT</h2>
+    <p class="lead">DAWID BARTOSIK</p>
+    <p>t: <a href="tel:+48600217877">600 217 877</a><br>e: <a href="mailto:dbartosik@datadb.pl">dbartosik@datadb.pl</a></p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>Strona niepubliczna, do użytku w rozmowach o projekcie.</p>
+</footer>
+
+<script>
+(function(){
+  var current=null, currentBtn=null;
+  var playBtns=document.querySelectorAll('.play');
+  function setState(btn,playing){
+    btn.setAttribute('aria-pressed',playing?'true':'false');
+    btn.querySelector('.ico-play').style.display=playing?'none':'';
+    btn.querySelector('.ico-pause').style.display=playing?'':'none';
+  }
+  playBtns.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var src=btn.getAttribute('data-audio');
+      if(currentBtn===btn && current){
+        if(current.paused){current.play();}else{current.pause();}
+        return;
+      }
+      if(current){current.pause();setState(currentBtn,false);}
+      current=new Audio(src); currentBtn=btn;
+      var bar=btn.parentElement.querySelector('.bar i');
+      current.addEventListener('play',function(){
+        setState(btn,true);
+        /* miejsce na licznik odtworzeń: Plausible, GA lub własny endpoint */
+        if(window.plausible){window.plausible('play',{props:{file:src}});}
+      });
+      current.addEventListener('pause',function(){setState(btn,false);});
+      current.addEventListener('ended',function(){setState(btn,false);if(bar){bar.style.width='0';}});
+      current.addEventListener('timeupdate',function(){
+        if(bar && current.duration){bar.style.width=(current.currentTime/current.duration*100)+'%';}
+      });
+      current.addEventListener('error',function(){
+        setState(btn,false);
+        btn.parentElement.querySelector('.meta b, b').textContent='Brak pliku: '+src;
+      });
+      current.play();
+    });
+  });
+})();
+</script>
+</body>
+</html>
