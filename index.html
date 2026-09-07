@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>W razie czego — serial audio o obronie cywilnej</title>
+<script data-goatcounter="https://dawid.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -180,8 +181,10 @@
       var bar=btn.parentElement.querySelector('.bar i');
       current.addEventListener('play',function(){
         setState(btn,true);
-        /* miejsce na licznik odtworzeń: Plausible, GA lub własny endpoint */
-        if(window.plausible){window.plausible('play',{props:{file:src}});}
+        /* zdarzenie odtworzenia */
+        if(window.goatcounter&&window.goatcounter.count){
+          window.goatcounter.count({path:'play/'+src.split('/').pop(),title:'Play',event:true});
+        }
       });
       current.addEventListener('pause',function(){setState(btn,false);});
       current.addEventListener('ended',function(){setState(btn,false);if(bar){bar.style.width='0';}});
